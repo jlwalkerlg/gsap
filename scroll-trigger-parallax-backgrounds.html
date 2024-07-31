@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrollTrigger parallax backgrounds</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    section {
+      --y: 0%;
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-repeat: no-repeat;
+      background-position-x: 50%;
+      background-position-y: var(--y);
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h2>Section 1</h2>
+  </section>
+
+  <section>
+    <h2>Section 2</h2>
+  </section>
+
+  <section>
+    <h2>Section 3</h2>
+  </section>
+
+  <section>
+    <h2>Section 4</h2>
+  </section>
+
+  <section>
+    <h2>Section 5</h2>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger)
+
+    const sections = gsap.utils.toArray("section")
+
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i]
+      section.style.backgroundImage = `url(https://picsum.photos/1600/800?random=${i})`
+
+      gsap.to(section, {
+        "--y": 100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+          markers: true,
+        }
+      })
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Trigger Panels</title>
+  <style>
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .hero, .footer {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .panel-container {
+      display: flex;
+    }
+
+    .panel {
+      flex-shrink: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .orange {
+      background-color: coral;
+    }
+
+    .purple {
+      background-color: indigo;
+      color: white;
+    }
+
+    .green {
+      background-color: olive;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Hero</h1>
+  </div>
+
+  <div class="panel-container">
+    <div class="panel green">
+      <h2>Section 1</h2>
+    </div>
+
+    <div class="panel orange">
+      <h2>Section 2</h2>
+    </div>
+
+    <div class="panel purple">
+      <h2>Section 3</h2>
+    </div>
+
+    <div class="panel green">
+      <h2>Section 4</h2>
+    </div>
+  </div>
+
+  <div class="footer">
+    <h2>Footer</h2>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger)
+
+    const container = document.querySelector(".panel-container")
+    const panels = gsap.utils.toArray(".panel")
+
+    gsap.to(panels, {
+      xPercent: -100 * (panels.length - 1),
+      ease: "none",
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: () => `+=${container.offsetWidth}`,
+        scrub: 0.5,
+        pin: true,
+        snap: 1 / (panels.length - 1),
+      }
+    })
+  </script>
+</body>
+</html>

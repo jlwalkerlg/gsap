@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Trigger</title>
+  <style>
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .section-1 {
+      height: 100vh;
+      background-color: antiquewhite;
+    }
+
+    .section-2 {
+      height: 100vh;
+      background-color: aliceblue;
+    }
+
+    .section-3 {
+      height: 100vh;
+      background-color: aqua;
+    }
+
+    .box-1 {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+    }
+
+    .box-1-ghost {
+      width: 50px;
+      height: 50px;
+      background-color: indigo;
+    }
+
+    .box-2 {
+      width: 50px;
+      height: calc(100vh - 100px);
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="section-1"></div>
+
+  <div class="section-2">
+    <div class="box-1"></div>
+    <div class="box-2"></div>
+  </div>
+
+  <div class="section-3">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      gsap.registerPlugin(ScrollTrigger)
+
+      gsap.to(".box-1", {
+        x: document.body.clientWidth - 50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".box-1",
+          start: "top 80%",
+          end: "top 20%",
+          markers: true,
+          scrub: true,
+          pin: true,
+        },
+      })
+    })
+   </script>
+</body>
+</html>

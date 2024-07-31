@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Trigger Panels</title>
+  <style>
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero, .footer {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .panel-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .panel.before {
+      position: relative;
+    }
+
+    .panel.after {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .panel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>Scroll to see the before/after</h1>
+  </section>
+
+  <section class="panel-container">
+    <div class="panel before">
+      <img src="https://assets.codepen.io/16327/before.jpg">
+    </div>
+
+    <div class="panel after">
+      <img src="https://assets.codepen.io/16327/after.jpg">
+    </div>
+  </section>
+
+  <section class="footer">
+    <h2>Footer</h2>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger)
+
+    const container = document.querySelector(".panel-container")
+
+    const tl = gsap.timeline({
+      ease: "none",
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: () => `+=${container.offsetWidth}`,
+        scrub: true,
+        pin: true,
+      }
+    })
+
+    tl.from(".panel.after", {
+      xPercent: 100,
+      x: 0,
+    }, 0)
+
+    tl.from(".panel.after img", {
+      xPercent: -100,
+    }, 0)
+  </script>
+</body>
+</html>
